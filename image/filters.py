@@ -3,15 +3,16 @@ import numpy as np
 
 SIZE = 3
 
+
 def gaussian(x, y, sigma=3):
     result = math.exp(-1 / float(2 * sigma**2) * float(x*x + y*y)) / float(2 * math.pi * sigma**2)
     return result
 
 
-def gaussian_filter(np_array, sigma=1):
+def gaussian_filter(np_array, sigma=1, size=SIZE):
     output = np.zeros(np_array.shape)
-    gaus_matrix = gaussian_matrix(sigma=sigma)
-    k = SIZE
+    gaus_matrix = gaussian_matrix(sigma=sigma, size=size)
+    k = size
 
     for x in range(output.shape[0]):
         for y in range(output.shape[1]):
@@ -22,13 +23,13 @@ def gaussian_filter(np_array, sigma=1):
                         continue
                     if y+v < 0 or y+v >= np_array.shape[1]:
                         continue
-                    g += gaus_matrix[SIZE + u, SIZE + v] * np_array[x+u, y+v]
+                    g += gaus_matrix[size + u, size + v] * np_array[x+u, y+v]
             output[x, y] = g
     return output
 
 
-def gaussian_matrix(sigma=1):
-    halfwidth = SIZE
+def gaussian_matrix(sigma=1, size=SIZE):
+    halfwidth = size
     size = 2 * halfwidth + 1
     matrix = np.zeros((size, size))
 

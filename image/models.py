@@ -2,7 +2,7 @@ import numpy as np
 from scipy import misc, ndimage
 
 from .exceptions import NoImageFileFound
-from .filters import gaussian_filter
+from .filters import SIZE, gaussian_filter
 
 
 class Image:
@@ -40,6 +40,6 @@ class Image:
         blurred_content = ndimage.gaussian_filter(self.content, sigma=sigma)
         return Image("{}--gaussian_{}".format(self.title, sigma), blurred_content)
 
-    def custom_gaussian(self, sigma=3):
-        blurred_content = gaussian_filter(self.content, sigma=sigma)
+    def custom_gaussian(self, sigma=3, size=SIZE):
+        blurred_content = gaussian_filter(self.content, sigma=sigma, size=size)
         return Image("{}--custom-gaussian_{}".format(self.title, sigma), blurred_content)
